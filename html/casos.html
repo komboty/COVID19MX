@@ -53,7 +53,28 @@
     </header>
 
     <main class="container">
-        <div id="map"></div>
+        <div id="map-wrapper">
+            <div id="map"></div>
+            <!-- <div id="button-wrapper" class="btn-group" role="group" aria-label="Basic">
+                <button type="button" class="btn btn-outline-secondary" data-toggle="button"
+                    aria-pressed="false">Todos</button>
+                <button type="button" class="btn btn-outline-secondary" data-toggle="button"
+                    aria-pressed="false">Mujeres</button>
+                <button type="button" class="btn btn-outline-secondary" data-toggle="button"
+                    aria-pressed="false">Hombres</button>
+            </div> -->
+            <div id="button-wrapper" class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-outline-light active">
+                    <input type="radio" name="options" id="option1" checked> Todos
+                </label>
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="options" id="option2"> Mujeres
+                </label>
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="options" id="option3"> Hombres
+                </label>
+            </div>
+        </div>
     </main>
 
     <footer class="footer">
