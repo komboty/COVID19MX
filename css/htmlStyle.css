@@ -21,14 +21,11 @@ body {
 /* Custom page CSS
 -------------------------------------------------- */
 body > .container {
-    padding: 80px 15px 0;
+    padding: 80px 0 0;
 }
 
 .footer > .container {
     padding-right: 15px;
     padding-left: 15px;
-}
-
-.row {
-   padding-top: 15px; 
+    padding-top: 15px; 
 }

@@ -21,20 +21,19 @@ let geojson = L.geoJson(statesData, {
 let info = L.control();
 info.onAdd = function (map) {
     this._div = L.DomUtil.create('div', 'info');
-    this.update();
+    this.update();    
     return this._div;
 };
 info.update = function (props) {
-    this._div.innerHTML = '<h4>Casos Positivos COVID-19</h4>Actualizado: 21/03/2020<br><br>'
-        + (props ? '<b>' + props.estado + ': ' + props.confirmados + '</b><br>Hombres:' + props.hombre + '<br>Mujeres:' + props.mujer
-            : 'Selecciona un estado para más información');
+    this._div.innerHTML = '<h4>Confirmados con COVID-19</h4>Actualizado: 21/03/2020'
+        + (props ? '' : '<br><br>Selecciona un estado para ver información');
 };
 info.addTo(map);
 
 // -----------------------------------------------------------------
 // Etuiqueta con los intervalos de cada color
 // -----------------------------------------------------------------
-let legend = L.control({ position: 'bottomright' });
+let legend = L.control({ position: 'bottomleft' });
 legend.onAdd = function (map) {
     let div = L.DomUtil.create('div', 'info legend'), labels = [];
 
@@ -99,15 +98,16 @@ function highlightFeature(e) {
     }
 
     info.update(layer.feature.properties);
+    updateTable(layer.feature.properties);
 }
 
 // Evento mouseout
 function resetHighlight(e) {
     geojson.resetStyle(e.target);
     info.update();
+    resertTable();
 }
 
 /*function zoomToFeature(e) {
     map.fitBounds(e.target.getBounds());
 }*/
-
