@@ -1,0 +1,11 @@
+.carousel-inner, img {
+    height: 540px;
+}
+
+.carousel-caption {
+    color: black;
+}
+
+.carousel-control-next-icon, .carousel-control-prev-icon, .carousel-indicators {
+    filter: invert(1);
+}
