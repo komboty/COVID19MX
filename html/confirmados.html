@@ -54,46 +54,80 @@
 
     <main class="container">
         <div class="row no-gutters">
+
             <div class="col-9">
                 <div id="map"></div>
             </div>
+
             <div class="col-3">
-                <div class="card">
-                    <div id="estadoT" class="card-header"><h5>Estado</h5></div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <div class="row no-gutters">
-                                <div class="col-md-8"><h5>Total</h5></div>
-                                <div id="totalT" class="col-md-4 text-right"><h5>0</h5></div>
+                <li class="list-group-item" id="estadoT">
+                    <h5>Estado</h5>
+                </li>
+
+                <div class="list-group" id="list-tab" role="tablist">
+                    <a class="list-group-item list-group-item-light list-group-item-action active" id="list-total-list"
+                        data-toggle="list" role="tab" aria-controls="total">
+                        <div class="row no-gutters">
+                            <div class="col-md-8">
+                                <h5>Total</h5>
                             </div>
-                            <div class="progress">
-                                <div id="barTotalT" class="progress-bar bg-warning" role="progressbar" style="width: 0%;" aria-valuenow="0"
-                                    aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="col-md-4 text-right" id="totalT">
+                                <h5>0</h5>
                             </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="row no-gutters">
-                                <div class="col-md-8"><h6>Mujeres</h6></div>
-                                <div id="mujeresT" class="col-md-4 text-right"><h6>0</h6></div>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar bg-warning" id="barTotalT" role="progressbar" style="width: 0%;"
+                                aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </a>
+                    <a class="list-group-item list-group-item-light list-group-item-action" id="list-hombres-list"
+                        data-toggle="list" role="tab" aria-controls="hombres">
+                        <div class="row no-gutters">
+                            <div class="col-md-8">
+                                <h6>Hombres</h6>
                             </div>
-                            <div class="progress">
-                                <div id="barMujeresT" class="progress-bar bg-warning" role="progressbar" style="width: 0%;" aria-valuenow="0"
-                                    aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="col-md-4 text-right" id="hombresT">
+                                <h6>0</h6>
                             </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="row no-gutters">
-                                <div class="col-md-8"><h6>Hombres</h6></div>
-                                <div id="hombresT" class="col-md-4 text-right"><h6>0</h6></div>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar bg-warning" id="barHombresT" role="progressbar" style="width: 0%;"
+                                aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </a>
+                    <a class="list-group-item list-group-item-light list-group-item-action" id="list-mujeres-list"
+                        data-toggle="list" role="tab" aria-controls="mujeres">
+                        <div class="row no-gutters">
+                            <div class="col-md-8">
+                                <h6>Mujeres</h6>
                             </div>
-                            <div class="progress">
-                                <div id="barHombresT" class="progress-bar bg-warning" role="progressbar" style="width: 0%;" aria-valuenow="0"
-                                    aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="col-md-4 text-right" id="mujeresT">
+                                <h6>0</h6>
                             </div>
-                        </li>
-                    </ul>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar bg-warning" id="barMujeresT" role="progressbar" style="width: 0%;"
+                                aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </a>
+                    <!-- <a class="list-group-item list-group-item-light list-group-item-action" id="list-edad-0-10-list"
+                        data-toggle="list" role="tab" aria-controls="edad-0-10">
+                        <div class="row no-gutters">
+                            <div class="col-md-8">
+                                <h6>Edad [0-10]</h6>
+                            </div>
+                            <div id="edad010T" class="col-md-4 text-right">
+                                <h6>0</h6>
+                            </div>
+                        </div>
+                        <div class="progress">
+                            <div id="barEdad010T" class="progress-bar bg-warning" role="progressbar" style="width: 0%;"
+                                aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </a> -->
                 </div>
             </div>
+        </div>
         </div>
     </main>
 

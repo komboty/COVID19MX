@@ -25,7 +25,7 @@ info.onAdd = function (map) {
     return this._div;
 };
 info.update = function (props) {
-    this._div.innerHTML = '<h4>Confirmados con COVID-19</h4>Actualizado: 22/03/2020'
+    this._div.innerHTML = '<h4>Confirmados con COVID-19</h4>Actualizado: 24/03/2020'
         + (props ? '' : '<br><br>Selecciona un estado para ver información');
 };
 info.addTo(map);

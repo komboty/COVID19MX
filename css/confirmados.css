@@ -32,7 +32,7 @@
     opacity: 0.7;
 }
 
-/* Columns
+/* Columns (Map, Info)
 -------------------------------------------------- */
 .no-gutters > .col-9 {
     padding-right: 5px;
@@ -43,3 +43,9 @@
 .progress {
     height: 5px;
 }
+
+/* Table Info 
+-------------------------------------------------- 
+#estadoT {
+    color: white;
+}*/
