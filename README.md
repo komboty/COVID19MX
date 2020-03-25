@@ -1,4 +1,4 @@
-# [COVID-19 MX](https://komboty.github.io/COVID19MX/html/casos.html)
+# [COVID-19 MX](https://komboty.github.io/COVID19MX/html/index.html)
 Proyecto que analiza los datos publicados por la Secretaría de Salud Federal referentes al Coronavirus y los representa gráficamente.
 ___
 
