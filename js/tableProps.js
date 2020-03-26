@@ -7,10 +7,10 @@ for (let index = 0; index < rangosEdad.length; index++) {
     listTab.innerHTML += getGroupItemHTML('edad', rangosEdad[index]);
 }
 
-/*let KeyProcedencia = Object.keys(statesData.features[0].properties.procedencia);
+let KeyProcedencia = Object.keys(statesData.features[0].properties.procedencia);
 for (let index = 0; index < KeyProcedencia.length; index++) {
     listTab.innerHTML += getGroupItemHTML('procedencia', KeyProcedencia[index]);
-}*/
+}
 
 let numTotal = document.getElementById('totalT');
 let barTotal = document.getElementById('barTotalT');
@@ -19,13 +19,15 @@ let barMujeres = document.getElementById('barMujeresT');
 let numHombres = document.getElementById('hombresT');
 let barHombres = document.getElementById('barHombresT');
 
+
 function updateTable(props) {
     console.log(props);
     setHElement(estadoTxt, props.estado, 5);
     setValorGroupItem(numTotal, 5, barTotal, props.confirmados);
     setValorGroupItem(numMujeres, 6, barMujeres, props.mujer);
     setValorGroupItem(numHombres, 6, barHombres, props.hombre);
-    setValueEdad('edad', 'baredad', rangosEdad, props.edad);
+    setValorEN('edad', rangosEdad, props.edad);
+    setValorEN('procedencia', KeyProcedencia, props.procedencia);
 }
 
 function resertTable() {
@@ -33,7 +35,8 @@ function resertTable() {
     setValorGroupItem(numTotal, 5, barTotal, 0);
     setValorGroupItem(numMujeres, 6, barMujeres, 0);
     setValorGroupItem(numHombres, 6, barHombres, 0);
-    setValueEdad('edad', 'baredad', rangosEdad);
+    setValorEN('edad', rangosEdad);
+    setValorEN('procedencia', KeyProcedencia);
 }
 
 function setValorGroupItem(elementNumero, h, elementBar, valor) {
@@ -46,16 +49,16 @@ function setHElement(element, valor, h) {
     element.innerHTML = '<h' + h + '>' + valor + '</h' + h + '>';
 }
 
-function setValueEdad(keyNumElement, keyBarElement, ObjKeys, obj) {
-    let numRango, barRango, key, valor;
+function setValorEN(keyElement, ObjKeys, obj) {
+    let numElement, barElement, key, valor;
 
     for (let index = 0; index < ObjKeys.length; index++) {
         key = ObjKeys[index];
         valor = obj ? obj[key] : 0;
-        numRango = document.getElementById(keyNumElement + key + 'T');
-        barRango = document.getElementById(keyBarElement + key + 'T');
+        numElement = document.getElementById(keyElement + key + 'T');
+        barElement = document.getElementById('bar' + keyElement + key + 'T');
 
-        setValorGroupItem(numRango, 6, barRango, valor);
+        setValorGroupItem(numElement, 6, barElement, valor);
     }
 }
 
