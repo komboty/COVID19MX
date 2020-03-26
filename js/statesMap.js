@@ -1,4 +1,5 @@
 let grades = [0, 5, 10, 15, 20, 25, 50, 100];
+let eOld;
 
 // -----------------------------------------------------------------
 // Configuracion del mapa
@@ -25,7 +26,7 @@ info.onAdd = function (map) {
     return this._div;
 };
 info.update = function (props) {
-    this._div.innerHTML = '<h4>Confirmados con COVID-19</h4>Actualizado: 24/03/2020'
+    this._div.innerHTML = '<h4>Confirmados con COVID-19</h4>Actualizado: ' + statesData.fecha
         + (props ? '' : '<br><br>Selecciona un estado para ver información');
 };
 info.addTo(map);
@@ -84,6 +85,7 @@ function onEachFeature(feature, layer) {
 
 // Evento mouseover
 function highlightFeature(e) {
+    onlyClick(e);
     let layer = e.target;
 
     layer.setStyle({
@@ -106,6 +108,13 @@ function resetHighlight(e) {
     geojson.resetStyle(e.target);
     info.update();
     resertTable();
+}
+
+function onlyClick(e) {
+    if (eOld) {
+        resetHighlight(eOld);
+    }
+    eOld = e;
 }
 
 /*function zoomToFeature(e) {
