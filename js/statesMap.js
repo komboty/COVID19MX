@@ -61,6 +61,30 @@ function style(feature) {
     };
 }
 
+// Estilo de cada estado segun la llave de properties
+function styleByKey(key, value) {
+    geojson.clearLayers();
+    geojson = L.geoJson(statesData, {
+        style: function (feature) {
+            let number = feature.properties[key];
+            if (value) {
+                number = number[value];
+            }
+            
+            return {
+                fillColor: getColor(number),
+                weight: 2,
+                opacity: 1,
+                color: 'white',
+                dashArray: '3',
+                fillOpacity: 0.7
+            }
+        },
+        onEachFeature: onEachFeature
+    }).addTo(map);
+    resertTable();
+}
+
 // Color correspondiente al numero de datos
 function getColor(d) {
     return d > grades[8] ? '#800026' :
