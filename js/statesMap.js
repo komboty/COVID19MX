@@ -4,7 +4,7 @@ let eOld;
 // -----------------------------------------------------------------
 // Configuracion del mapa
 // -----------------------------------------------------------------
-let map = L.map('map').setView([24.363, -100.749], 5);
+let map = L.map('map', { zoomControl: false }).setView([25.150, -100.749], 5);
 L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a>',
     maxZoom: 18
@@ -19,14 +19,20 @@ let geojson = L.geoJson(statesData, {
 // -----------------------------------------------------------------
 // Informacion del estado seleccionado
 // -----------------------------------------------------------------
-let info = L.control();
+let info = L.control({ position: 'topleft' });
 info.onAdd = function (map) {
     this._div = L.DomUtil.create('div', 'info');
-    this.update();    
+    this.update();
     return this._div;
 };
 info.update = function (props) {
-    this._div.innerHTML = '<h4>Confirmados con COVID-19</h4>Actualizado: ' + statesData.fecha
+    // this._div.innerHTML = '<h4>Confirmados con COVID-19 ' 
+    //     + (props ? '<br>en ' + props.estado : '')
+    //     + '</h4>Actualizado: ' +statesData.fecha
+    //     + (props ? '' : '<br><br>Selecciona un estado para ver más información');
+    this._div.innerHTML = '<h4>'
+        + (props ? props.estado : '')
+        + '</h4>Actualizado: ' + statesData.fecha
         + (props ? '' : '<br><br>Selecciona un estado para ver más información');
 };
 info.addTo(map);
@@ -70,7 +76,7 @@ function styleByKey(key, value) {
             if (value) {
                 number = number[value];
             }
-            
+
             return {
                 fillColor: getColor(number),
                 weight: 2,
@@ -82,7 +88,7 @@ function styleByKey(key, value) {
         },
         onEachFeature: onEachFeature
     }).addTo(map);
-    resertTable();
+    resertTable();    
 }
 
 // Color correspondiente al numero de datos
@@ -125,6 +131,7 @@ function highlightFeature(e) {
 
     info.update(layer.feature.properties);
     updateTable(layer.feature.properties);
+    //displayEstado(true);
 }
 
 // Evento mouseout

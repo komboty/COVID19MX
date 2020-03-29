@@ -11,6 +11,10 @@ let idSubMenu = '-sub' + idMenu;
 let idList = '-list';
 let idItmeList = '-item' + idList;
 
+
+// let allList = document.getElementById('info' + idList);
+// let estadoItemList = document.getElementById('estado' + idItmeList);
+
 // --------------------------------------------------------------------
 // Elements menu vistas 
 let titleDd = document.getElementById('title' + idMenu);
@@ -20,8 +24,6 @@ let proceSubMenu = document.getElementById(keyProce + idSubMenu);
 // --------------------------------------------------------------------
 // Elements lista general
 //let generalList = document.getElementById('general' + idList);
-
-let estadoItemList = document.getElementById('estado' + idItmeList);
 
 let totalItemList = document.getElementById(keyConfirm + idItmeList);
 let numTotal = document.getElementById(keyConfirm + 'T');
@@ -50,7 +52,7 @@ let procelList = document.getElementById(keyProce + idList);
 // --------------------------------------------------------------------
 // Creacion de items de la lista edad
 let rangosEdad = Object.keys(statesData.features[0].properties.edad);
-//listTab.innerHTML += crearBrItemList();
+//edadList.innerHTML += crearBrItemList();
 for (let index = 0; index < rangosEdad.length; index++) {
     edadList.innerHTML += crearItemList(keyEdad, rangosEdad[index]);
     edadSubMenu.innerHTML += crearItmeSubMenu(keyEdad, rangosEdad[index]);
@@ -59,7 +61,7 @@ for (let index = 0; index < rangosEdad.length; index++) {
 // --------------------------------------------------------------------
 // Creacion de items de la lista procedencia
 let arrayProce = Object.keys(statesData.features[0].properties.procedencia);
-//listTab.innerHTML += crearBrItemList();
+//procelList.innerHTML += crearBrItemList();
 for (let index = 0; index < arrayProce.length; index++) {
     procelList.innerHTML += crearItemList(keyProce, arrayProce[index]);
     proceSubMenu.innerHTML += crearItmeSubMenu(keyProce, arrayProce[index]);
@@ -87,7 +89,7 @@ $('.dropdown-menu a.dropdown-toggle').on('click', function (e) {
 // Actualizacion de la tabla segun el estado seleccionado
 function updateTable(props) {
     console.log(props);
-    setHElement(estadoItemList, props.estado, 5);
+    //setHElement(estadoItemList, props.estado, 5);
     setValorItemList(numTotal, 5, barTotal, props.confirmados);
     setValorItemList(numMujeres, 6, barMujeres, props.mujer);
     setValorItemList(numHombres, 6, barHombres, props.hombre);
@@ -97,7 +99,7 @@ function updateTable(props) {
 
 // Restablece la tabla a su configuracion inicial
 function resertTable() {
-    setHElement(estadoItemList, 'Estado', 5);
+    //setHElement(estadoItemList, 'Estado', 5);
     setValorItemList(numTotal, 5, barTotal, 0);
     setValorItemList(numMujeres, 6, barMujeres, 0);
     setValorItemList(numHombres, 6, barHombres, 0);
@@ -135,9 +137,12 @@ function setValorEN(keyElement, ObjKeys, obj) {
 function clickView(key, value) {
     let titulo = key == keyConfirm ? 'todos' : key;
     let subTitulo = value ? '> ' + value + ' ' : '';
-    titleDd.innerHTML = '' + titulo + ' ' + subTitulo;
+    let icono = '<i class="fa fa-eye"></i>';
+    titleDd.innerHTML = icono + ' Confirmados > ' + titulo + ' ' + subTitulo;
     styleByKey(key, value);
-    displayListsBy(key);
+    info.update();
+    displayListsBy(key);    
+    //displayEstado();
 }
 
 // Oculta o muestra items de la tabla
@@ -193,3 +198,20 @@ function crearItmeSubMenu(key, value) {
     let metodo = "clickView('" + key + "','" + value + "')";
     return '<a class="dropdown-item" href="#" onclick="' + metodo + '">' + value + '</a>';
 }
+
+function createBrSubMenu() {
+    return '<div class="dropdown-divider"></div>';
+}
+
+/*function displayEstado(boolean) {
+    let ver = 'none';
+    let alto = '580px';
+
+    if (boolean) {
+        ver = '';
+        alto = '530px';
+    } 
+
+    estadoItemList.style.display = ver;
+    allList.style.height = alto;
+}*/

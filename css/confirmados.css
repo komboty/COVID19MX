@@ -1,5 +1,9 @@
 /* Map
 -------------------------------------------------- */
+/*#map-wrapper {
+    position: relative;
+}*/
+
 #map {
     width: 100%;
     height: 580px;
@@ -10,7 +14,7 @@
     padding: 6px 8px;
     font: 14px/16px Arial, Helvetica, sans-serif;
     background: white;
-    background: rgba(255,255,255,0.8);
+    background: rgba(255, 255, 255, 0.911);
     box-shadow: 0 0 15px rgba(0,0,0,0.2);
     border-radius: 5px;
 }
@@ -35,7 +39,7 @@
 /* Columns (Map, Info)
 -------------------------------------------------- */ 
 .no-gutters {
-    padding-top: 2px;
+    padding-top: 4px;
 }
 
 .no-gutters > .col-9 {
@@ -44,15 +48,23 @@
 
 /* Progress bars
 -------------------------------------------------- */
-.progress {
+/*.progress {
     height: 5px;
-}
+}*/
 
 /* Dropdown vistas
 -------------------------------------------------- */
-/*.dropdown-menu {
-    z-index: 500px;
-}*/
+#button-wrapper {
+    position: absolute;
+    top: -4px;
+    width: 100%;
+    z-index: 9999;
+}
+
+.dropdown-menu a, .dropdown-menu li  a{
+    color:#fff;
+    background:#495057;
+}
 
 .dropdown-submenu {
   position: relative;
@@ -75,10 +87,13 @@
 /* Tabla de informacion
 -------------------------------------------------- */
 .wrapper {    
-    height: 545px;
+    /*height: 530px;*/
+    height: 580px;
     overflow: scroll;
 }
 
+/*
+-------------------------------------------------- */
 body {
     margin-bottom: 185px;
 }
