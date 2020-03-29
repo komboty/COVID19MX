@@ -33,9 +33,13 @@
 }
 
 /* Columns (Map, Info)
--------------------------------------------------- */
+-------------------------------------------------- */ 
+.no-gutters {
+    padding-top: 2px;
+}
+
 .no-gutters > .col-9 {
-    padding-right: 5px;
+    padding-right: 2px;
 }
 
 /* Progress bars
@@ -66,4 +70,15 @@
   left: 100%;
   margin-left: .1rem;
   margin-right: .1rem;
+}
+
+/* Tabla de informacion
+-------------------------------------------------- */
+.wrapper {    
+    height: 545px;
+    overflow: scroll;
+}
+
+body {
+    margin-bottom: 185px;
 }

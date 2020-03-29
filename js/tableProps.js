@@ -19,7 +19,7 @@ let proceSubMenu = document.getElementById(keyProce + idSubMenu);
 
 // --------------------------------------------------------------------
 // Elements lista general
-let generalList = document.getElementById('general' + idList);
+//let generalList = document.getElementById('general' + idList);
 
 let estadoItemList = document.getElementById('estado' + idItmeList);
 
