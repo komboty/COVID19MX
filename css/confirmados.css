@@ -46,12 +46,16 @@
 
 /* Dropdown vistas
 -------------------------------------------------- */
+/*.dropdown-menu {
+    z-index: 500px;
+}*/
+
 .dropdown-submenu {
   position: relative;
 }
 
 .dropdown-submenu a::after {
-  /*transform: rotate(90deg);*/
+  transform: rotate(-90deg);
   position: absolute;
   right: 6px;
   top: .8em;

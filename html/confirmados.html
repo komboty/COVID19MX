@@ -53,22 +53,11 @@
     </header>
 
     <main class="container">
-        <!-- <div class="btn-group dropright">
-            <button class="btn btn-secondary dropdown-toggle" id="titleDd" type="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                Vista > todos
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#" onclick="clickView('confirmados')">Todos</a>
-                <a class="dropdown-item" href="#" onclick="clickView('hombre')">Hombres</a>
-                <a class="dropdown-item" href="#" onclick="clickView('mujer')">Mujeres</a>
-            </div>
-        </div> -->
-
-        <div class="btn-group dropright">
-            <button class="btn btn-secondary dropdown-toggle" id="titleDd" type="button" 
+        <div class="btn-group">
+            <button class="btn btn-dark" type="button">Vista</button>
+            <button class="btn btn-secondary dropdown-toggle dropdown-toggle-split" id="title-menu-vistas" type="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Vista > todos
+                todos
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item" href="#" onclick="clickView('confirmados')">Todos</a>
@@ -76,12 +65,12 @@
                 <a class="dropdown-item" href="#" onclick="clickView('mujer')">Mujeres</a>
                 <li class="dropdown-submenu">
                     <a class="dropdown-item dropdown-toggle" href="#">Rango de Edad</a>
-                    <div class="dropdown-menu">                        
+                    <div class="dropdown-menu" id="edad-sub-menu-vistas">
                     </div>
                 </li>
                 <li class="dropdown-submenu">
                     <a class="dropdown-item dropdown-toggle" href="#">Procedencia</a>
-                    <div class="dropdown-menu">                        
+                    <div class="dropdown-menu" id="procedencia-sub-menu-vistas">
                     </div>
                 </li>
             </div>
@@ -94,12 +83,11 @@
             </div>
 
             <div class="col-3">
-                <li class="list-group-item" id="estadoT">
-                    <h5>Estado</h5>
-                </li>
-
-                <ul class="list-group" id="list-tab">
-                    <li class="list-group-item" id="confirmados-lgItem">
+                <ul class="list-group" id="general-list">
+                    <li class="list-group-item" id="estado-item-list">
+                        <h5>Estado</h5>
+                    </li>
+                    <li class="list-group-item" id="confirmados-item-list">
                         <div class="row no-gutters">
                             <div class="col-md-8">
                                 <h5>Total</h5>
@@ -113,21 +101,10 @@
                                 style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                     </li>
-                    <li class="list-group-item" id="mujer-lgItem">
-                        <div class="row no-gutters">
-                            <div class="col-md-8">
-                                <h6>Mujeres</h6>
-                            </div>
-                            <div id="mujerT" class="col-md-4 text-right">
-                                <h6>0</h6>
-                            </div>
-                        </div>
-                        <div class="progress">
-                            <div id="barmujerT" class="progress-bar bg-warning" role="progressbar" style="width: 0%;"
-                                aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                    </li>
-                    <li class="list-group-item" id="hombre-lgItem">
+                </ul>
+                <ul class="list-group" id="sexo-list">
+                    <li class="list-group-item"></li>
+                    <li class="list-group-item" id="hombre-item-list">
                         <div class="row no-gutters">
                             <div class="col-md-8">
                                 <h6>Hombres</h6>
@@ -141,9 +118,28 @@
                                 aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                     </li>
+                    <li class="list-group-item" id="mujer-item-list">
+                        <div class="row no-gutters">
+                            <div class="col-md-8">
+                                <h6>Mujeres</h6>
+                            </div>
+                            <div id="mujerT" class="col-md-4 text-right">
+                                <h6>0</h6>
+                            </div>
+                        </div>
+                        <div class="progress">
+                            <div id="barmujerT" class="progress-bar bg-warning" role="progressbar" style="width: 0%;"
+                                aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="list-group" id="edad-list">
+                    <li class="list-group-item"></li>
+                </ul>
+                <ul class="list-group" id="procedencia-list">
+                    <li class="list-group-item"></li>
                 </ul>
             </div>
-        </div>
         </div>
     </main>
 

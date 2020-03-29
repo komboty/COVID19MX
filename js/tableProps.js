@@ -1,7 +1,3 @@
-let titleDd = document.getElementById('titleDd');
-let estadoTxt = document.getElementById('estadoT');
-let listTab = document.getElementById('list-tab');
-
 // identificadores
 let keyConfirm = 'confirmados';
 let keyMujer = 'mujer';
@@ -9,56 +5,108 @@ let keyHombre = 'hombre';
 let keyEdad = 'edad';
 let keyProce = 'procedencia';
 
-// Creacion de rangos de edad
-let rangosEdad = Object.keys(statesData.features[0].properties.edad);
-listTab.innerHTML += getBrGroupItemHTML();
-for (let index = 0; index < rangosEdad.length; index++) {
-    listTab.innerHTML += getGroupItemHTML(keyEdad, rangosEdad[index]);
-}
+let idMenu = '-menu-vistas';
+let idSubMenu = '-sub' + idMenu;
 
-// Creacion de procedencias
-let arrayProce = Object.keys(statesData.features[0].properties.procedencia);
-listTab.innerHTML += getBrGroupItemHTML();
-for (let index = 0; index < arrayProce.length; index++) {
-    listTab.innerHTML += getGroupItemHTML(keyProce, arrayProce[index]);
-}
+let idList = '-list';
+let idItmeList = '-item' + idList;
 
-// Elementos HTML 
-let itemTotal = document.getElementById(keyConfirm + '-lgItem');
+// --------------------------------------------------------------------
+// Elements menu vistas 
+let titleDd = document.getElementById('title' + idMenu);
+let edadSubMenu = document.getElementById(keyEdad + idSubMenu);
+let proceSubMenu = document.getElementById(keyProce + idSubMenu);
+
+// --------------------------------------------------------------------
+// Elements lista general
+let generalList = document.getElementById('general' + idList);
+
+let estadoItemList = document.getElementById('estado' + idItmeList);
+
+let totalItemList = document.getElementById(keyConfirm + idItmeList);
 let numTotal = document.getElementById(keyConfirm + 'T');
 let barTotal = document.getElementById('bar' + keyConfirm + 'T');
 
-let itemMujeres = document.getElementById(keyMujer + '-lgItem');
+// --------------------------------------------------------------------
+// Elements lista sexo
+let sexoList = document.getElementById('sexo' + idList);
+
+let mujerItemList = document.getElementById(keyMujer + idItmeList);
 let numMujeres = document.getElementById(keyMujer + 'T');
 let barMujeres = document.getElementById('bar' + keyMujer + 'T');
 
-let itemHombres = document.getElementById(keyHombre + '-lgItem');
+let hombresItemList = document.getElementById(keyHombre + idItmeList);
 let numHombres = document.getElementById(keyHombre + 'T');
 let barHombres = document.getElementById('bar' + keyHombre + 'T');
+
+// --------------------------------------------------------------------
+// Elements lista edad
+let edadList = document.getElementById(keyEdad + idList);
+
+// --------------------------------------------------------------------
+// Elements lista procedencia
+let procelList = document.getElementById(keyProce + idList);
+
+// --------------------------------------------------------------------
+// Creacion de items de la lista edad
+let rangosEdad = Object.keys(statesData.features[0].properties.edad);
+//listTab.innerHTML += crearBrItemList();
+for (let index = 0; index < rangosEdad.length; index++) {
+    edadList.innerHTML += crearItemList(keyEdad, rangosEdad[index]);
+    edadSubMenu.innerHTML += crearItmeSubMenu(keyEdad, rangosEdad[index]);
+}
+
+// --------------------------------------------------------------------
+// Creacion de items de la lista procedencia
+let arrayProce = Object.keys(statesData.features[0].properties.procedencia);
+//listTab.innerHTML += crearBrItemList();
+for (let index = 0; index < arrayProce.length; index++) {
+    procelList.innerHTML += crearItemList(keyProce, arrayProce[index]);
+    proceSubMenu.innerHTML += crearItmeSubMenu(keyProce, arrayProce[index]);
+}
+
+// --------------------------------------------------------------------
+// Control de Dropdwon de vistas
+$('.dropdown-menu a.dropdown-toggle').on('click', function (e) {
+    if (!$(this).next().hasClass('show')) {
+        $(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
+    }
+    var $subMenu = $(this).next(".dropdown-menu");
+    $subMenu.toggleClass('show');
+
+
+    $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function (e) {
+        $('.dropdown-submenu .show').removeClass("show");
+    });
+
+
+    return false;
+});
+
 
 // Actualizacion de la tabla segun el estado seleccionado
 function updateTable(props) {
     console.log(props);
-    setHElement(estadoTxt, props.estado, 5);
-    setValorGroupItem(numTotal, 5, barTotal, props.confirmados);
-    setValorGroupItem(numMujeres, 6, barMujeres, props.mujer);
-    setValorGroupItem(numHombres, 6, barHombres, props.hombre);
+    setHElement(estadoItemList, props.estado, 5);
+    setValorItemList(numTotal, 5, barTotal, props.confirmados);
+    setValorItemList(numMujeres, 6, barMujeres, props.mujer);
+    setValorItemList(numHombres, 6, barHombres, props.hombre);
     setValorEN(keyEdad, rangosEdad, props.edad);
     setValorEN(keyProce, arrayProce, props.procedencia);
 }
 
 // Restablece la tabla a su configuracion inicial
 function resertTable() {
-    setHElement(estadoTxt, 'Estado', 5);
-    setValorGroupItem(numTotal, 5, barTotal, 0);
-    setValorGroupItem(numMujeres, 6, barMujeres, 0);
-    setValorGroupItem(numHombres, 6, barHombres, 0);
+    setHElement(estadoItemList, 'Estado', 5);
+    setValorItemList(numTotal, 5, barTotal, 0);
+    setValorItemList(numMujeres, 6, barMujeres, 0);
+    setValorItemList(numHombres, 6, barHombres, 0);
     setValorEN(keyEdad, rangosEdad);
     setValorEN(keyProce, arrayProce);
 }
 
 // Asigna informacion a un item de la tabla
-function setValorGroupItem(elementNumero, h, elementBar, valor) {
+function setValorItemList(elementNumero, h, elementBar, valor) {
     setHElement(elementNumero, valor, h);
     elementBar.style.width = valor + '%';
     elementBar.setAttribute("aria-valuenow", valor)
@@ -79,41 +127,55 @@ function setValorEN(keyElement, ObjKeys, obj) {
         numElement = document.getElementById(keyElement + ' ' + key + 'T');
         barElement = document.getElementById('bar' + keyElement + ' ' + key + 'T');
 
-        setValorGroupItem(numElement, 6, barElement, valor);
+        setValorItemList(numElement, 6, barElement, valor);
     }
 }
 
 // Click en boton de vistas
 function clickView(key, value) {
     let titulo = key == keyConfirm ? 'todos' : key;
-    titleDd.innerHTML = 'Vista > ' + titulo + ' ' + (value || '');
+    let subTitulo = value ? '> ' + value + ' ' : '';
+    titleDd.innerHTML = '' + titulo + ' ' + subTitulo;
     styleByKey(key, value);
-    itemViewBy(key);
+    displayListsBy(key);
 }
 
 // Oculta o muestra items de la tabla
-function itemViewBy(key) {
+function displayListsBy(key) {
+    resetDisplayList();
+
     switch (key) {
         case keyConfirm:
-            itemHombres.style.display = '';
-            itemMujeres.style.display = '';
             break;
 
         case keyMujer:
         case keyHombre:
-            itemHombres.style.display = 'none';
-            itemMujeres.style.display = 'none';
+            sexoList.style.display = 'none';
+            break;
+
+        case keyEdad:
+            edadList.style.display = 'none';
+            break;
+
+        case keyProce:
+            procelList.style.display = 'none';
             break;
     }
 }
 
+function resetDisplayList() {
+    sexoList.style.display = '';
+    edadList.style.display = '';
+    procelList.style.display = '';
+}
+
 // Crea un item vacio
-function getBrGroupItemHTML() {
-    return '<a class="list-group-item list-group-item-light"></a>';
+function crearBrItemList() {
+    return '<li class="list-group-item"></li>';
 }
 
 // Crea un item de la tabla
-function getGroupItemHTML(key, value) {
+function crearItemList(key, value) {
     let id = key + ' ' + value;
     return '<li class="list-group-item">'
         + '<div class="row no-gutters">'
@@ -126,19 +188,8 @@ function getGroupItemHTML(key, value) {
         + '</li>';
 }
 
-// Control de Dropdwon de vistas
-$('.dropdown-menu a.dropdown-toggle').on('click', function (e) {
-    if (!$(this).next().hasClass('show')) {
-        $(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
-    }
-    var $subMenu = $(this).next(".dropdown-menu");
-    $subMenu.toggleClass('show');
-
-
-    $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function (e) {
-        $('.dropdown-submenu .show').removeClass("show");
-    });
-
-
-    return false;
-});
+// Crea un item del menu de vistas
+function crearItmeSubMenu(key, value) {
+    let metodo = "clickView('" + key + "','" + value + "')";
+    return '<a class="dropdown-item" href="#" onclick="' + metodo + '">' + value + '</a>';
+}
