@@ -5,6 +5,10 @@ let keyHombre = 'hombre';
 let keyEdad = 'edad';
 let keyProce = 'procedencia';
 
+let keyAll = 'All';
+let keyOne = 'One';
+let keyAllsOnes = keyConfirm;
+
 let idMenu = '-menu-vistas';
 let idSubMenu = '-sub' + idMenu;
 
@@ -51,7 +55,7 @@ let procelList = document.getElementById(keyProce + idList);
 
 // --------------------------------------------------------------------
 // Creacion de items de la lista edad
-let rangosEdad = Object.keys(statesData.features[0].properties.edad);
+let rangosEdad = Object.keys(ObjAllsOnes[keyConfirm + keyAll][keyEdad]);
 //edadList.innerHTML += crearBrItemList();
 for (let index = 0; index < rangosEdad.length; index++) {
     edadList.innerHTML += crearItemList(keyEdad, rangosEdad[index]);
@@ -60,12 +64,16 @@ for (let index = 0; index < rangosEdad.length; index++) {
 
 // --------------------------------------------------------------------
 // Creacion de items de la lista procedencia
-let arrayProce = Object.keys(statesData.features[0].properties.procedencia);
+let arrayProce = Object.keys(ObjAllsOnes[keyConfirm + keyAll][keyProce]);
 //procelList.innerHTML += crearBrItemList();
 for (let index = 0; index < arrayProce.length; index++) {
     procelList.innerHTML += crearItemList(keyProce, arrayProce[index]);
     proceSubMenu.innerHTML += crearItmeSubMenu(keyProce, arrayProce[index]);
 }
+
+// --------------------------------------------------------------------
+// Valores iniciales de la tabla
+initDataAllTable(keyAllsOnes);
 
 // --------------------------------------------------------------------
 // Control de Dropdwon de vistas
@@ -86,32 +94,55 @@ $('.dropdown-menu a.dropdown-toggle').on('click', function (e) {
 });
 
 
+// Actualiza los datos de la tabla segun la llave
+function initDataAllTable(key) {
+    let dataCity = ObjAllsOnes[key + keyAll];
+    /* setValorItemList(numTotal, 5, barTotal, dataCity.confirmados);
+    setValorItemList(numMujeres, 6, barMujeres, dataCity.mujer);
+    setValorItemList(numHombres, 6, barHombres, dataCity.hombre);
+    setValorEN(keyEdad, rangosEdad, dataCity.edad);
+    setValorEN(keyProce, arrayProce, dataCity.procedencia); */
+    setValorLists(dataCity[keyConfirm], dataCity[keyHombre], dataCity[keyMujer], dataCity[keyEdad], dataCity[keyProce]);
+}
+
 // Actualizacion de la tabla segun el estado seleccionado
 function updateTable(props) {
-    console.log(props);
+    let dataCity = ObjAllsOnes[keyAllsOnes + keyOne][props.name];
     //setHElement(estadoItemList, props.estado, 5);
-    setValorItemList(numTotal, 5, barTotal, props.confirmados);
-    setValorItemList(numMujeres, 6, barMujeres, props.mujer);
-    setValorItemList(numHombres, 6, barHombres, props.hombre);
-    setValorEN(keyEdad, rangosEdad, props.edad);
-    setValorEN(keyProce, arrayProce, props.procedencia);
+    /* setValorItemList(numTotal, 5, barTotal, dataCity.confirmados);
+    setValorItemList(numMujeres, 6, barMujeres, dataCity.mujer);
+    setValorItemList(numHombres, 6, barHombres, dataCity.hombre);
+    setValorEN(keyEdad, rangosEdad, dataCity.edad);
+    setValorEN(keyProce, arrayProce, dataCity.procedencia); */
+    setValorLists(dataCity[keyConfirm], dataCity[keyHombre], dataCity[keyMujer], dataCity[keyEdad], dataCity[keyProce]);
 }
 
 // Restablece la tabla a su configuracion inicial
 function resertTable() {
     //setHElement(estadoItemList, 'Estado', 5);
-    setValorItemList(numTotal, 5, barTotal, 0);
+    /* setValorItemList(numTotal, 5, barTotal, 0);
     setValorItemList(numMujeres, 6, barMujeres, 0);
     setValorItemList(numHombres, 6, barHombres, 0);
     setValorEN(keyEdad, rangosEdad);
-    setValorEN(keyProce, arrayProce);
+    setValorEN(keyProce, arrayProce); */
+    setValorLists(0, 0, 0);
+}
+
+// Inserta valores a la tabla
+function setValorLists(intConfirm, intHombres, intMujeres, intsEdad, intsProce) {
+    setValorItemList(numTotal, 5, barTotal, intConfirm);
+    setValorItemList(numMujeres, 6, barMujeres, intMujeres);
+    setValorItemList(numHombres, 6, barHombres, intHombres);
+    setValorEN(keyEdad, rangosEdad, intsEdad);
+    setValorEN(keyProce, arrayProce, intsProce);
 }
 
 // Asigna informacion a un item de la tabla
 function setValorItemList(elementNumero, h, elementBar, valor) {
     setHElement(elementNumero, valor, h);
-    elementBar.style.width = valor + '%';
-    elementBar.setAttribute("aria-valuenow", valor)
+    let porcentaje = valor / 2;
+    elementBar.style.width = porcentaje + '%';
+    elementBar.setAttribute("aria-valuenow", porcentaje)
 }
 
 // Crea un <h></h>
@@ -137,11 +168,15 @@ function setValorEN(keyElement, ObjKeys, obj) {
 function clickView(key, value) {
     let titulo = key == keyConfirm ? 'todos' : key;
     let subTitulo = value ? '> ' + value + ' ' : '';
-    let icono = '<i class="fa fa-eye"></i>';
-    titleDd.innerHTML = icono + ' Confirmados > ' + titulo + ' ' + subTitulo;
+    let icono = '<i class="fa fa-bars"></i>';
+    let txtBtn = ' Confirmados > ' + titulo + ' ' + subTitulo;
+    titleDd.innerHTML = icono + txtBtn.toUpperCase();
+    keyAllsOnes = value || key;
+
     styleByKey(key, value);
-    info.update();
-    displayListsBy(key);    
+    info.update();    
+    initDataAllTable(keyAllsOnes);
+    displayListsBy(key);
     //displayEstado();
 }
 
@@ -188,7 +223,7 @@ function crearItemList(key, value) {
         + '<div id="' + id + 'T" class="col-md-4 text-right"><h6>0</h6></div></div>'
         + '<div class="progress">'
         + '<div id="bar' + id + 'T" class="progress-bar bg-warning" role="progressbar" style="width: 0%;" '
-        + 'aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>'
+        + 'aria-valuenow="0" aria-valuemin="0" aria-valuemax="200"></div>'
         + '</div>'
         + '</li>';
 }
@@ -210,7 +245,7 @@ function createBrSubMenu() {
     if (boolean) {
         ver = '';
         alto = '530px';
-    } 
+    }
 
     estadoItemList.style.display = ver;
     allList.style.height = alto;

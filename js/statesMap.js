@@ -1,4 +1,4 @@
-let grades = [0, 5, 10, 15, 20, 25, 50, 100];
+let grades = [0, 5, 10, 20, 50, 100, 150, 200];
 let eOld;
 
 // -----------------------------------------------------------------
@@ -31,8 +31,8 @@ info.update = function (props) {
     //     + '</h4>Actualizado: ' +statesData.fecha
     //     + (props ? '' : '<br><br>Selecciona un estado para ver más información');
     this._div.innerHTML = '<h4>'
-        + (props ? props.estado : '')
-        + '</h4>Actualizado: ' + statesData.fecha
+        + (props ? props.name : '')
+        + '</h4>Actualizado: ' + ObjAllsOnes.fecha
         + (props ? '' : '<br><br>Selecciona un estado para ver más información');
 };
 info.addTo(map);
@@ -57,8 +57,9 @@ legend.addTo(map);
 
 // Estilo de cada estado
 function style(feature) {
+    let city = feature.properties.name;
     return {
-        fillColor: getColor(feature.properties.confirmados),
+        fillColor: getColor(ObjAllsOnes[keyAllsOnes + keyOne][city][keyConfirm]),
         weight: 2,
         opacity: 1,
         color: 'white',
@@ -71,24 +72,21 @@ function style(feature) {
 function styleByKey(key, value) {
     geojson.clearLayers();
     geojson = L.geoJson(statesData, {
-        style: function (feature) {
-            let number = feature.properties[key];
-            if (value) {
-                number = number[value];
-            }
-
+        /*style: function (feature) {
+            let city = feature.properties.name;
+            let keyAllsOnes = value || key;
             return {
-                fillColor: getColor(number),
+                fillColor: getColor(ObjAllsOnes[keyAllsOnes + keyOne][city][keyConfirm]),
                 weight: 2,
                 opacity: 1,
                 color: 'white',
                 dashArray: '3',
                 fillOpacity: 0.7
             }
-        },
+        }*/ style: style,
         onEachFeature: onEachFeature
     }).addTo(map);
-    resertTable();    
+    //resertTable();
 }
 
 // Color correspondiente al numero de datos
@@ -138,7 +136,7 @@ function highlightFeature(e) {
 function resetHighlight(e) {
     geojson.resetStyle(e.target);
     info.update();
-    resertTable();
+    //resertTable();
 }
 
 function onlyClick(e) {
